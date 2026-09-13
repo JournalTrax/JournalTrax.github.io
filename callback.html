@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Completing sign-in...</title></head>
+<body>
+<p>Completing sign-in... keep this window open.</p>
+<script>
+(function () {
+  var q = new URLSearchParams(window.location.search);
+  var parts = [];
+  ["code", "realmId", "state"].forEach(function (k) {
+    if (q.has(k)) parts.push(encodeURIComponent(k) + "=" + encodeURIComponent(q.get(k)));
+  });
+  if (parts.length) {
+    window.location.replace("http://localhost:8080/callback?" + parts.join("&"));
+  } else {
+    document.body.textContent = "Sign-in failed: no authorization code returned.";
+  }
+})();
+</script>
+</body>
+</html>
